@@ -1,6 +1,7 @@
 ## Vulnerable Wpf test application.
 
 Used to test SAST/SCA tools.
+
 It contains at least the following vulnerabilities:
 
 ##### Components
@@ -14,6 +15,7 @@ It contains at least the following vulnerabilities:
 `XmlSigningService`:
 - Xml injection.
 - Private key stored as string.
+  
 `UserService`:
 - Sql injection.
 - Xml (Xaml) injection.    
