@@ -1,0 +1,138 @@
+﻿<Window x:Class="TestWpfApplication.XamlGeneratorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Générateur XAML Dynamique" Height="800" Width="1200"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Partie gauche : Saisie XAML -->
+        <GroupBox Grid.Column="0" Header="🎨 Saisie XAML" Margin="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Toolbar avec exemples -->
+                <ToolBar Grid.Row="0" Background="LightGray">
+                    <Label Content="Templates:" FontWeight="Bold"/>
+                    <Button Content="📝 Simple Form" Click="LoadSimpleForm_Click" ToolTip="Formulaire simple"/>
+                    <Button Content="📋 Registration" Click="LoadRegistrationForm_Click" ToolTip="Formulaire d'inscription"/>
+                    <Button Content="📊 Survey" Click="LoadSurveyForm_Click" ToolTip="Questionnaire"/>
+                    <Separator/>
+                    <Button Content="🔄 Reset" Click="ResetXaml_Click" ToolTip="Réinitialiser"/>
+                    <Button Content="💾 Save" Click="SaveXaml_Click" ToolTip="Sauvegarder XAML"/>
+                    <Button Content="📁 Load" Click="LoadXaml_Click" ToolTip="Charger XAML"/>
+                </ToolBar>
+
+                <!-- Zone de saisie XAML -->
+                <TextBox Grid.Row="1" 
+                         x:Name="XamlTextBox" 
+                         AcceptsReturn="True" 
+                         AcceptsTab="True"
+                         VerticalScrollBarVisibility="Auto"
+                         HorizontalScrollBarVisibility="Auto"
+                         FontFamily="Consolas"
+                         FontSize="11"
+                         Margin="5"
+                         Background="FloralWhite"
+                         Text="&lt;StackPanel Margin=&quot;10&quot;&gt;&#x0A;    &lt;TextBlock Text=&quot;Saisissez votre XAML ici...&quot; FontSize=&quot;16&quot; FontWeight=&quot;Bold&quot; Margin=&quot;0,0,0,10&quot;/&gt;&#x0A;    &lt;TextBlock Text=&quot;Nom :&quot; Margin=&quot;0,0,0,5&quot;/&gt;&#x0A;    &lt;TextBox Name=&quot;NomTextBox&quot; Height=&quot;25&quot; Margin=&quot;0,0,0,10&quot;/&gt;&#x0A;    &lt;TextBlock Text=&quot;Email :&quot; Margin=&quot;0,0,0,5&quot;/&gt;&#x0A;    &lt;TextBox Name=&quot;EmailTextBox&quot; Height=&quot;25&quot; Margin=&quot;0,0,0,10&quot;/&gt;&#x0A;    &lt;Button Content=&quot;Valider&quot; Width=&quot;100&quot; Height=&quot;30&quot; HorizontalAlignment=&quot;Left&quot;/&gt;&#x0A;&lt;/StackPanel&gt;"/>
+
+                <!-- Boutons d'action -->
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                    <Button x:Name="ValidateXamlButton" 
+                            Content="✅ Valider XAML" 
+                            Width="120" 
+                            Height="30" 
+                            Margin="5"
+                            Click="ValidateXamlButton_Click"
+                            Background="LightGreen"/>
+                    <Button x:Name="GenerateButton" 
+                            Content="🎯 Générer Interface" 
+                            Width="140" 
+                            Height="30" 
+                            Margin="5"
+                            Click="GenerateButton_Click"
+                            Background="LightBlue"/>
+                    <Button x:Name="ClearPreviewButton" 
+                            Content="🗑️ Effacer Aperçu" 
+                            Width="120" 
+                            Height="30" 
+                            Margin="5"
+                            Click="ClearPreviewButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <!-- Séparateur -->
+        <GridSplitter Grid.Column="1" 
+                      HorizontalAlignment="Stretch" 
+                      Background="Gray"
+                      ResizeDirection="Columns"/>
+
+        <!-- Partie droite : Aperçu et interaction -->
+        <GroupBox Grid.Column="2" Header="👁️ Aperçu Dynamique" Margin="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="200"/>
+                </Grid.RowDefinitions>
+
+                <!-- Zone d'aperçu -->
+                <ScrollViewer Grid.Row="0" 
+                              VerticalScrollBarVisibility="Auto" 
+                              HorizontalScrollBarVisibility="Auto"
+                              Background="White"
+                              BorderBrush="DarkGray"
+                              BorderThickness="2">
+                    <ContentPresenter x:Name="DynamicContentPresenter" 
+                                      Margin="10"/>
+                </ScrollViewer>
+
+                <!-- Actions sur l'interface générée -->
+                <GroupBox Grid.Row="1" Header="🔧 Actions" MaxHeight="100">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button x:Name="ExtractDataButton" 
+                                Content="📊 Extraire Données" 
+                                Width="120" 
+                                Height="25" 
+                                Margin="5"
+                                Click="ExtractDataButton_Click"/>
+                        <Button x:Name="FillSampleDataButton" 
+                                Content="🎲 Données Test" 
+                                Width="120" 
+                                Height="25" 
+                                Margin="5"
+                                Click="FillSampleDataButton_Click"/>
+                        <Button x:Name="ResetValuesButton" 
+                                Content="🔄 Reset Valeurs" 
+                                Width="120" 
+                                Height="25" 
+                                Margin="5"
+                                Click="ResetValuesButton_Click"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Zone de résultats -->
+                <GroupBox Grid.Row="2" Header="📋 Données Extraites">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <TextBox x:Name="ResultTextBox" 
+                                 IsReadOnly="True" 
+                                 FontFamily="Consolas" 
+                                 FontSize="10" 
+                                 Background="LightGray"
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap"/>
+                    </ScrollViewer>
+                </GroupBox>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>

@@ -1,0 +1,74 @@
+﻿<Window x:Class="TestWpfApplication.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Wpf Test Application" Height="250" Width="900"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Titre -->
+        <TextBlock Grid.Row="0" 
+                   Text="Wpf Test Application" 
+                   FontSize="24" 
+                   FontWeight="Bold" 
+                   HorizontalAlignment="Center" 
+                   Margin="10"/>
+
+        <!-- Zone de recherche -->
+        <GroupBox Grid.Row="1" Header="Features" Margin="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="1" 
+                        x:Name="SqlSearchButton" 
+                        Content="SQL Avancé" 
+                        Width="90" 
+                        Height="25" 
+                        Margin="5"
+                        Click="SqlSearchButton_Click"
+                        Background="LightBlue"/>
+
+                <Button Grid.Column="2" 
+                        x:Name="DynamicFieldsButton" 
+                        Content="Générateur XAML" 
+                        Width="120" 
+                        Height="25" 
+                        Margin="5"
+                        Click="DynamicFieldsButton_Click"
+                        Background="LightGreen"
+                        ToolTip="Ouvrir le générateur XAML dynamique"/>
+
+                <Button Grid.Column="3" 
+                        x:Name="XmlSigningButton" 
+                        Content="Signature XML" 
+                        Width="100" 
+                        Height="25" 
+                        Margin="5"
+                        Click="XmlSigningButton_Click"
+                        Background="LightCoral"
+                        ToolTip="Signer des documents XML avec Azure Key Vault"/>
+            </Grid>
+        </GroupBox>
+       
+        <!-- Barre de statut -->
+        <StatusBar Grid.Row="3">
+            <StatusBarItem>
+                <TextBlock x:Name="StatusTextBlock" Text="Prêt"/>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock x:Name="CountTextBlock" Text=""/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>

@@ -1,0 +1,141 @@
+﻿<Window x:Class="TestWpfApplication.SqlSearchWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Recherche SQL Avancée" Height="700" Width="1000"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Titre -->
+        <TextBlock Grid.Row="0" 
+                   Text="Recherche SQL Directe" 
+                   FontSize="20" 
+                   FontWeight="Bold" 
+                   HorizontalAlignment="Center" 
+                   Margin="10"/>
+
+        <!-- Zone de saisie SQL -->
+        <GroupBox Grid.Row="1" Header="Requête SQL" Margin="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBox Grid.Row="0" 
+                         x:Name="SqlQueryTextBox" 
+                         AcceptsReturn="True" 
+                         VerticalScrollBarVisibility="Auto"
+                         HorizontalScrollBarVisibility="Auto"
+                         FontFamily="Consolas"
+                         FontSize="12"
+                         Margin="5"
+                         Text="SELECT * FROM users WHERE first_name LIKE '%Jean%'"/>
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+                    <Button x:Name="ValidateButton" 
+                            Content="Valider SQL" 
+                            Width="100" 
+                            Height="30" 
+                            Margin="5,0"
+                            Click="ValidateButton_Click"/>
+                    <Button x:Name="ExecuteButton" 
+                            Content="Exécuter" 
+                            Width="100" 
+                            Height="30" 
+                            Margin="5,0"
+                            Click="ExecuteButton_Click"/>
+                    <Button x:Name="ClearSqlButton" 
+                            Content="Effacer" 
+                            Width="100" 
+                            Height="30" 
+                            Margin="5,0"
+                            Click="ClearSqlButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <!-- Exemples de requêtes -->
+        <GroupBox Grid.Row="2" Header="Exemples de requêtes" Margin="10" MaxHeight="120">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Margin="5" TextWrapping="Wrap">
+                        <Run FontWeight="Bold">Exemples :</Run><LineBreak/>
+                        • SELECT * FROM users WHERE is_active = true<LineBreak/>
+                        • SELECT first_name, last_name, email FROM users WHERE email LIKE '%gmail%'<LineBreak/>
+                        • SELECT * FROM users WHERE created_date >= '2023-06-01' ORDER BY created_date DESC<LineBreak/>
+                        • SELECT COUNT(*) as total_users FROM users WHERE is_active = true
+                    </TextBlock>
+                </StackPanel>
+            </ScrollViewer>
+        </GroupBox>
+
+        <!-- Résultats -->
+        <GroupBox Grid.Row="3" Header="Résultats" Margin="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
+                    <RadioButton x:Name="UserViewRadio" 
+                                 Content="Vue Utilisateur" 
+                                 IsChecked="True" 
+                                 Margin="0,0,20,0"
+                                 Checked="ViewMode_Changed"/>
+                    <RadioButton x:Name="RawViewRadio" 
+                                 Content="Vue Brute" 
+                                 Checked="ViewMode_Changed"/>
+                </StackPanel>
+
+                <!-- DataGrid pour les utilisateurs -->
+                <DataGrid Grid.Row="1" 
+                          x:Name="UsersResultDataGrid" 
+                          AutoGenerateColumns="False" 
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          IsReadOnly="True"
+                          AlternatingRowBackground="LightGray"
+                          GridLinesVisibility="Horizontal"
+                          Visibility="Visible">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                        <DataGridTextColumn Header="Prénom" Binding="{Binding FirstName}" Width="120"/>
+                        <DataGridTextColumn Header="Nom" Binding="{Binding LastName}" Width="120"/>
+                        <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="200"/>
+                        <DataGridTextColumn Header="Date création" Binding="{Binding CreatedDate, StringFormat=dd/MM/yyyy HH:mm}" Width="140"/>
+                        <DataGridCheckBoxColumn Header="Actif" Binding="{Binding IsActive}" Width="60"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!-- DataGrid pour les résultats bruts -->
+                <DataGrid Grid.Row="1" 
+                          x:Name="RawResultDataGrid" 
+                          AutoGenerateColumns="True" 
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          IsReadOnly="True"
+                          AlternatingRowBackground="LightGray"
+                          
+                          Visibility="Collapsed"/>
+            </Grid>
+        </GroupBox>
+
+        <!-- Barre de statut -->
+        <StatusBar Grid.Row="4">
+            <StatusBarItem>
+                <TextBlock x:Name="StatusTextBlock" Text="Prêt"/>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock x:Name="ResultCountTextBlock" Text="0 résultat(s)"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>
