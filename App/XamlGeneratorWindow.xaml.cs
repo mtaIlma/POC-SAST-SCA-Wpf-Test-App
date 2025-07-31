@@ -12,6 +12,9 @@ using System.Xml;
 
 namespace TestWpfApplication
 {
+    /// <summary>
+    /// Xaml generator window.
+    /// </summary>
     public partial class XamlGeneratorWindow : Window
     {
         private FrameworkElement _generatedContent;
@@ -316,7 +319,8 @@ namespace TestWpfApplication
 
         private void LoadSimpleForm_Click(object sender, RoutedEventArgs e)
         {
-            XamlTextBox.Text = @"<StackPanel Margin=""10"">
+            XamlTextBox.Text = @"<StackPanel xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
+            xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"">
     <TextBlock Text=""Formulaire Simple"" FontSize=""18"" FontWeight=""Bold"" Margin=""0,0,0,15""/>
     
     <TextBlock Text=""Nom :"" Margin=""0,0,0,5""/>
@@ -333,7 +337,10 @@ namespace TestWpfApplication
 
         private void LoadRegistrationForm_Click(object sender, RoutedEventArgs e)
         {
-            XamlTextBox.Text = @"<Grid Margin=""10"">
+            XamlTextBox.Text = @"<Grid xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
+      xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
+      Margin=""10"">
+
     <Grid.RowDefinitions>
         <RowDefinition Height=""Auto""/>
         <RowDefinition Height=""Auto""/>
@@ -344,6 +351,7 @@ namespace TestWpfApplication
         <RowDefinition Height=""Auto""/>
         <RowDefinition Height=""Auto""/>
     </Grid.RowDefinitions>
+
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width=""120""/>
         <ColumnDefinition Width=""*""/>
@@ -380,12 +388,14 @@ namespace TestWpfApplication
         <Button Content=""S'inscrire"" Width=""100"" Height=""30"" Margin=""5""/>
         <Button Content=""Annuler"" Width=""100"" Height=""30"" Margin=""5""/>
     </StackPanel>
-</Grid>";
+</Grid>
+";
         }
 
         private void LoadSurveyForm_Click(object sender, RoutedEventArgs e)
         {
-            XamlTextBox.Text = @"<StackPanel Margin=""10"">
+            XamlTextBox.Text = @"<StackPanel xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
+      xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"" Margin=""10"">
     <TextBlock Text=""Questionnaire de Satisfaction"" FontSize=""18"" FontWeight=""Bold"" 
                HorizontalAlignment=""Center"" Margin=""0,0,0,20""/>
 

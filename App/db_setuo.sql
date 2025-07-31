@@ -15,17 +15,17 @@ CREATE TABLE users (
 );
 
 -- Insérer des données de test
-INSERT INTO users (first_name, last_name, email, created_date, is_active) VALUES
-('Jean', 'Dupont', 'jean.dupont@email.com', '2023-01-15', true),
-('Marie', 'Martin', 'marie.martin@email.com', '2023-02-20', true),
-('Pierre', 'Durand', 'pierre.durand@email.com', '2023-03-10', false),
-('Sophie', 'Leclerc', 'sophie.leclerc@email.com', '2023-04-05', true),
-('Antoine', 'Moreau', 'antoine.moreau@email.com', '2023-05-12', true),
-('Camille', 'Petit', 'camille.petit@email.com', '2023-06-18', false),
-('Lucas', 'Roux', 'lucas.roux@email.com', '2023-07-25', true),
-('Emma', 'Fournier', 'emma.fournier@email.com', '2023-08-30', true),
-('Thomas', 'Girard', 'thomas.girard@email.com', '2023-09-14', true),
-('Chloé', 'Bonnet', 'chloe.bonnet@email.com', '2023-10-22', false);
+INSERT INTO users (id, first_name, last_name, email, created_date, is_active) VALUES
+(1,'Jean', 'Dupont', 'jean.dupont@email.com', '2023-01-15', true),
+(2,'Marie', 'Martin', 'marie.martin@email.com', '2023-02-20', true),
+(3,'Pierre', 'Durand', 'pierre.durand@email.com', '2023-03-10', false),
+(4,'Sophie', 'Leclerc', 'sophie.leclerc@email.com', '2023-04-05', true),
+(5,'Antoine', 'Moreau', 'antoine.moreau@email.com', '2023-05-12', true),
+(6,'Camille', 'Petit', 'camille.petit@email.com', '2023-06-18', false),
+(7,'Lucas', 'Roux', 'lucas.roux@email.com', '2023-07-25', true),
+(8,'Emma', 'Fournier', 'emma.fournier@email.com', '2023-08-30', true),
+(9,'Thomas', 'Girard', 'thomas.girard@email.com', '2023-09-14', true),
+(10,'Chloé', 'Bonnet', 'chloe.bonnet@email.com', '2023-10-22', false);
 
 -- Créer des index pour améliorer les performances de recherche
 CREATE INDEX idx_users_first_name ON users(first_name);

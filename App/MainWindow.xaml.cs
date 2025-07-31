@@ -13,6 +13,9 @@ using TestWpfApplication.Services;
 
 namespace TestWpfApplication
 {
+    /// <summary>
+    /// Main window.
+    /// </summary>
     public partial class MainWindow : Window
     {
         private readonly UserService _userService;

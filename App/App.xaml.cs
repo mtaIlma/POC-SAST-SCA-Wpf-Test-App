@@ -6,7 +6,7 @@ using System.Windows;
 namespace TestWpfApplication
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// Entry point.
     /// </summary>
     public partial class App : Application
     {
@@ -17,10 +17,10 @@ namespace TestWpfApplication
             try
             {
                 // Initialiser la session factory au démarrage
-                //var sessionFactory = NHibernateHelper.SessionFactory;
+                var sessionFactory = NHibernateHelper.SessionFactory;
 
                 // Optionnel : créer le schéma de base si nécessaire
-                // NHibernateHelper.CreateSchema();
+               //  NHibernateHelper.CreateSchema();
             }
             catch (Exception ex)
             {

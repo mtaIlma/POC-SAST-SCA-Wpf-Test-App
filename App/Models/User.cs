@@ -3,6 +3,9 @@ using System.ComponentModel;
 
 namespace TestWpfApplication.Models
 {
+    /// <summary>
+    /// user view model.
+    /// </summary>
     public class User : INotifyPropertyChanged
     {
         private int _id;

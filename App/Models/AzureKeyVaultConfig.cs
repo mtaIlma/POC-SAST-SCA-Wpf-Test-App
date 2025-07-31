@@ -2,6 +2,9 @@
 
 namespace TestWpfApplication.Models
 {
+    /// <summary>
+    /// Keyvault config
+    /// </summary>
     public class AzureKeyVaultConfig
     {
         public string KeyVaultUrl { get; set; }

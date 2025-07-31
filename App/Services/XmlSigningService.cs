@@ -7,18 +7,23 @@ using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Xml;
 using System.Runtime.Caching;
+using Wpf_Test_App.Services;
 
 namespace TestWpfApplication.Services
 {
+    /// <summary>
+    /// Singing service.
+    /// </summary>
     public class XmlSigningService
     {
+        KeyVaultService _keyVaultService;
         private AzureKeyVaultConfig _config;
-        private static readonly MemoryCache _cache = MemoryCache.Default;
-        private const string CacheKey = "MyRsaKey";
 
         public XmlSigningService(AzureKeyVaultConfig config)
         {
             _config = config ?? throw new ArgumentNullException(nameof(config));
+
+            _keyVaultService = new KeyVaultService(config);
         }
 
         public async Task<SigningResult> SignXmlFileAsync(string xmlFilePath, string outputPath = null)
@@ -46,29 +51,7 @@ namespace TestWpfApplication.Services
                     $"{Path.GetFileNameWithoutExtension(xmlFilePath)}_signed{Path.GetExtension(xmlFilePath)}"
                 );
 
-
-                var keyStr = (string)_cache.Get(CacheKey);
-                if (string.IsNullOrEmpty(keyStr))               
-                {
-                    // Récupérer le certificat depuis Azure Key Vault
-                    result.Message = "Récupération du certificat depuis Azure Key Vault...";
-                    var certificate = await GetCertificateFromKeyVaultAsync();
-                    if (certificate == null)
-                    {
-                        result.Message = "Impossible de récupérer le certificat depuis Azure Key Vault.";
-                        return result;
-                    }
-
-                    var key = certificate.GetRSAPrivateKey();
-                    CacheItemPolicy policy = new CacheItemPolicy
-                    {
-                        AbsoluteExpiration = DateTimeOffset.Now.AddHours(10)
-                    };
-
-                    keyStr = key.ToXmlString(true);
-                    _cache.Add(CacheKey, keyStr, policy);
-                }
-
+                var keyStr = await _keyVaultService.GetKey();                           
                 RSACryptoServiceProvider rsaKey = new RSACryptoServiceProvider();
                 rsaKey.FromXmlString(keyStr);
 
@@ -98,26 +81,6 @@ namespace TestWpfApplication.Services
                 result.Message = $"Erreur lors de la signature : {ex.Message}";
                 result.Exception = ex;
                 return result;
-            }
-        }
-
-        private async Task<X509Certificate2> GetCertificateFromKeyVaultAsync()
-        {
-            try
-            {
-                // Créer le client d'authentification selon la méthode choisie
-                var credential = new ClientSecretCredential(_config.TenantId, _config.ClientId, _config.ClientSecret);
-
-                // Créer le client Key Vault
-                var client = new CertificateClient(new Uri(_config.KeyVaultUrl), credential);
-
-                // Récupérer le certificat
-                var certificateResponse = await client.DownloadCertificateAsync(_config.CertificateName);
-                return certificateResponse.Value;
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException($"Erreur lors de la récupération du certificat : {ex.Message}", ex);
             }
         }
 
@@ -174,7 +137,7 @@ namespace TestWpfApplication.Services
         {
             try
             {
-                var certificate = await GetCertificateFromKeyVaultAsync();
+                var certificate = await _keyVaultService.GetCertificateFromKeyVaultAsync();
                 return certificate != null;
             }
             catch

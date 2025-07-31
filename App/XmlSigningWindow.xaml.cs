@@ -11,6 +11,9 @@ using TestWpfApplication.Services;
 
 namespace TestWpfApplication
 {
+    /// <summary>
+    /// Xml signing window.
+    /// </summary>
     public partial class XmlSigningWindow : Window
     {
         private XmlSigningService _signingService;

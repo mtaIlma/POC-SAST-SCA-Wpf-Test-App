@@ -13,9 +13,22 @@ It contains at least the following vulnerabilities:
 ##### Code
 
 `XmlSigningService`:
+
 - Xml injection.
+
+`KeyVaultService`:
+
 - Private key stored as string.
   
+
 `UserService`:
+
 - Sql injection.
-- Xml (Xaml) injection.    
+
+`XamlGeneratorWindow.xaml.cs`
+
+- Xml injection.
+
+`NHibernateHelper.cs`
+
+- Database credentials in the source code. 

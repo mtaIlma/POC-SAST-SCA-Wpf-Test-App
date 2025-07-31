@@ -6,6 +6,9 @@ using NHibernate.Tool.hbm2ddl;
 
 namespace TestWpfApplication.Data
 {
+    /// <summary>
+    /// Config helper.
+    /// </summary>
     public static class NHibernateHelper
     {
         private static ISessionFactory _sessionFactory;
@@ -28,10 +31,10 @@ namespace TestWpfApplication.Data
                 .Database(PostgreSQLConfiguration.Standard
                     .ConnectionString(c => c
                         .Host("localhost")
-                        .Port(5432)
+                        .Port(5433)
                         .Database("userdb")
                         .Username("postgres")
-                        .Password("password")))
+                        .Password("secret123")))
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<UserMapping>())
                 .ExposeConfiguration(cfg =>
                 {
@@ -54,10 +57,10 @@ namespace TestWpfApplication.Data
                 .Database(PostgreSQLConfiguration.Standard
                     .ConnectionString(c => c
                         .Host("localhost")
-                        .Port(5432)
+                        .Port(5433)
                         .Database("userdb")
                         .Username("postgres")
-                        .Password("password")))
+                        .Password("secret123")))
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<UserMapping>())
                 .BuildConfiguration();
 

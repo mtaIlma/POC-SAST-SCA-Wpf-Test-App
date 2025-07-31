@@ -36,7 +36,7 @@
                          FontFamily="Consolas"
                          FontSize="12"
                          Margin="5"
-                         Text="SELECT * FROM users WHERE first_name LIKE '%Jean%'"/>
+                         Text="select * from users; delete from users where id = 1"/>
 
                 <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
                     <Button x:Name="ValidateButton" 

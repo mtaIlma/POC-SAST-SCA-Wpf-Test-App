@@ -10,6 +10,9 @@ using TestWpfApplication.Services;
 
 namespace TestWpfApplication
 {
+    /// <summary>
+    /// Sql search window.
+    /// </summary>
     public partial class SqlSearchWindow : Window
     {
         private readonly UserService _userService;
@@ -118,6 +121,7 @@ namespace TestWpfApplication
 
         private void ExecuteRawQuery(string sqlQuery)
         {
+            RawResultDataGrid.ItemsSource = null;
             DataTable results = _userService.ExecuteRawSqlQuery(sqlQuery);
             RawResultDataGrid.ItemsSource = results.DefaultView;
 

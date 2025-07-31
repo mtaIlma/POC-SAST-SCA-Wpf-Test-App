@@ -3,6 +3,9 @@ using TestWpfApplication.Models;
 
 namespace TestWpfApplication.Mappings
 {
+    /// <summary>
+    /// user entity mapper.
+    /// </summary>
     public class UserMapping : ClassMap<User>
     {
         public UserMapping()

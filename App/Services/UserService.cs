@@ -11,6 +11,9 @@ using TestWpfApplication.Models;
 
 namespace TestWpfApplication.Services
 {
+    /// <summary>
+    /// user service.
+    /// </summary>
     public class UserService
     {
         public List<User> SearchUsers(string searchTerm, bool activeOnly = false)

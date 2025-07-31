@@ -42,7 +42,8 @@
                          FontSize="11"
                          Margin="5"
                          Background="FloralWhite"
-                         Text="&lt;StackPanel Margin=&quot;10&quot;&gt;&#x0A;    &lt;TextBlock Text=&quot;Saisissez votre XAML ici...&quot; FontSize=&quot;16&quot; FontWeight=&quot;Bold&quot; Margin=&quot;0,0,0,10&quot;/&gt;&#x0A;    &lt;TextBlock Text=&quot;Nom :&quot; Margin=&quot;0,0,0,5&quot;/&gt;&#x0A;    &lt;TextBox Name=&quot;NomTextBox&quot; Height=&quot;25&quot; Margin=&quot;0,0,0,10&quot;/&gt;&#x0A;    &lt;TextBlock Text=&quot;Email :&quot; Margin=&quot;0,0,0,5&quot;/&gt;&#x0A;    &lt;TextBox Name=&quot;EmailTextBox&quot; Height=&quot;25&quot; Margin=&quot;0,0,0,10&quot;/&gt;&#x0A;    &lt;Button Content=&quot;Valider&quot; Width=&quot;100&quot; Height=&quot;30&quot; HorizontalAlignment=&quot;Left&quot;/&gt;&#x0A;&lt;/StackPanel&gt;"/>
+                         Text=""
+/>
 
                 <!-- Boutons d'action -->
                 <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
