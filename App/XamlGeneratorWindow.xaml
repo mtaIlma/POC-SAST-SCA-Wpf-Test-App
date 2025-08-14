@@ -25,6 +25,7 @@
                     <Button Content="📝 Simple Form" Click="LoadSimpleForm_Click" ToolTip="Formulaire simple"/>
                     <Button Content="📋 Registration" Click="LoadRegistrationForm_Click" ToolTip="Formulaire d'inscription"/>
                     <Button Content="📊 Survey" Click="LoadSurveyForm_Click" ToolTip="Questionnaire"/>
+                    <Button Content="📊 OpenTool" Click="Button_Click"  ToolTip="Open notepad"/>
                     <Separator/>
                     <Button Content="🔄 Reset" Click="ResetXaml_Click" ToolTip="Réinitialiser"/>
                     <Button Content="💾 Save" Click="SaveXaml_Click" ToolTip="Sauvegarder XAML"/>

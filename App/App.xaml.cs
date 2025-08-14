@@ -24,7 +24,7 @@ namespace TestWpfApplication
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erreur lors de l'initialisation de la base de données : {ex.Message}",
+                MessageBox.Show($"Erreur lors de l'initialisation de la base de données : {ex.Message}", // Vuln: error message exposure
                                "Erreur critique", MessageBoxButton.OK, MessageBoxImage.Error);
                 Shutdown();
             }

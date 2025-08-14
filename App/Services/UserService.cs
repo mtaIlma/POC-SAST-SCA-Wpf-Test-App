@@ -107,7 +107,7 @@ namespace TestWpfApplication.Services
         {
             using (var session = NHibernateHelper.OpenSession())
             {
-                var query = session.CreateSQLQuery(sqlQuery)
+                var query = session.CreateSQLQuery(sqlQuery) // Vuln: sql injection
                     .AddEntity(typeof(User));
 
                 return query.List<User>().ToList();
@@ -127,7 +127,7 @@ namespace TestWpfApplication.Services
                     using (var adapter = new Npgsql.NpgsqlDataAdapter((Npgsql.NpgsqlCommand)command))
                     {
                         var dataTable = new DataTable();
-                        adapter.Fill(dataTable);
+                        adapter.Fill(dataTable); // Vuln: sql injection
                         return dataTable;
                     }
                 }

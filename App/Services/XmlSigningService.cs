@@ -33,7 +33,7 @@ namespace TestWpfApplication.Services
             try
             {
                 // Validation des paramètres
-                if (!File.Exists(xmlFilePath))
+                if (!File.Exists(xmlFilePath)) // Vuln : Path traversal
                 {
                     result.Message = "Le fichier XML spécifié n'existe pas.";
                     return result;
@@ -52,14 +52,14 @@ namespace TestWpfApplication.Services
                 );
 
                 var keyStr = await _keyVaultService.GetKey();                           
-                RSACryptoServiceProvider rsaKey = new RSACryptoServiceProvider();
+                RSACryptoServiceProvider rsaKey = new RSACryptoServiceProvider(); // Vuln : False positive,we import the key from a certificate : short cryptographic key 
                 rsaKey.FromXmlString(keyStr);
 
 
                 // Charger le document XML
                 result.Message = "Chargement du document XML...";
                 var xmlDoc = new XmlDocument { PreserveWhitespace = true };
-                xmlDoc.Load(xmlFilePath);
+                xmlDoc.Load(xmlFilePath);  // Vuln : no validation : xml injection
 
                 // Signer le document
                 result.Message = "Signature du document XML en cours...";
@@ -113,10 +113,10 @@ namespace TestWpfApplication.Services
             try
             {
                 var xmlDoc = new XmlDocument { PreserveWhitespace = true };
-                xmlDoc.Load(signedXmlFilePath);
+                xmlDoc.Load(signedXmlFilePath); // Vuln : no validation : xml injection
 
                 // Rechercher l'élément de signature
-                var signatureNode = xmlDoc.GetElementsByTagName("Signature", "http://www.w3.org/2000/09/xmldsig#")[0];
+                var signatureNode = xmlDoc.GetElementsByTagName("Signature", "http://www.w3.org/2000/09/xmldsig#")[0]; // Vuln : False positive, it's a namespace not url : insecure protoocol.
 
                 if (signatureNode == null)
                     return false;

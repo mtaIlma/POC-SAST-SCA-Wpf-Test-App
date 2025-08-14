@@ -44,7 +44,7 @@ namespace Wpf_Test_App.Services
                 _cache.Add(CacheKey, keyStr, policy);
             }
 
-            return keyStr;
+            return keyStr; // Vuln: secret stored as string in memory
         }
 
         public async Task<X509Certificate2> GetCertificateFromKeyVaultAsync()

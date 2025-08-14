@@ -72,7 +72,7 @@ namespace TestWpfApplication
             {
                 LogMessage($"❌ Erreur lors du test : {ex.Message}");
                 UpdateStatus("Erreur test", Colors.Red);
-                MessageBox.Show($"❌ Erreur lors du test de connexion :\n{ex.Message}",
+                MessageBox.Show($"❌ Erreur lors du test de connexion :\n{ex.Message}", // Vuln: error message exposure
                                "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -130,7 +130,7 @@ namespace TestWpfApplication
                     return;
                 }
 
-                if (!File.Exists(XmlFilePathTextBox.Text))
+                if (!File.Exists(XmlFilePathTextBox.Text)) // Vuln: path traversal
                 {
                     MessageBox.Show("Le fichier XML spécifié n'existe pas.", "Erreur",
                                    MessageBoxButton.OK, MessageBoxImage.Error);
@@ -173,7 +173,7 @@ namespace TestWpfApplication
 
                     UpdateStatus("Signature réussie", Colors.Green);
 
-                    MessageBox.Show($"✅ Document XML signé avec succès !\n\nFichier signé : {result.SignedFilePath}",
+                    MessageBox.Show($"✅ Document XML signé avec succès !\n\nFichier signé : {result.SignedFilePath}", // Vuln: error message exposure
                                    "Signature réussie", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
@@ -186,7 +186,7 @@ namespace TestWpfApplication
 
                     UpdateStatus("Échec signature", Colors.Red);
 
-                    MessageBox.Show($"❌ Échec de la signature :\n{result.Message}",
+                    MessageBox.Show($"❌ Échec de la signature :\n{result.Message}", // Vuln: error message exposure
                                    "Erreur de signature", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
@@ -196,7 +196,7 @@ namespace TestWpfApplication
             {
                 LogMessage($"❌ Exception lors de la signature : {ex.Message}");
                 UpdateStatus("Erreur signature", Colors.Red);
-                MessageBox.Show($"❌ Erreur inattendue :\n{ex.Message}",
+                MessageBox.Show($"❌ Erreur inattendue :\n{ex.Message}", // Vuln: error message exposure
                                "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -207,7 +207,7 @@ namespace TestWpfApplication
             {
                 string fileToVerify = _lastSignedFilePath ?? OutputFilePathTextBox.Text;
 
-                if (string.IsNullOrWhiteSpace(fileToVerify) || !File.Exists(fileToVerify))
+                if (string.IsNullOrWhiteSpace(fileToVerify) || !File.Exists(fileToVerify)) // Vuln: path traversal
                 {
                     var openDialog = new OpenFileDialog
                     {
@@ -252,7 +252,7 @@ namespace TestWpfApplication
             catch (Exception ex)
             {
                 LogMessage($"❌ Erreur lors de la vérification : {ex.Message}");
-                MessageBox.Show($"❌ Erreur lors de la vérification :\n{ex.Message}",
+                MessageBox.Show($"❌ Erreur lors de la vérification :\n{ex.Message}", // Vuln: error message exposure
                                "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -287,7 +287,7 @@ namespace TestWpfApplication
             catch (Exception ex)
             {
                 LogMessage($"❌ Erreur lors du téléchargement : {ex.Message}");
-                MessageBox.Show($"❌ Erreur lors du téléchargement :\n{ex.Message}",
+                MessageBox.Show($"❌ Erreur lors du téléchargement :\n{ex.Message}", // Vuln: error message exposure
                                "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -310,7 +310,7 @@ namespace TestWpfApplication
             Dispatcher.Invoke(() =>
             {
                 string timestamp = DateTime.Now.ToString("HH:mm:ss");
-                LogTextBox.AppendText($"[{timestamp}] {message}\n");
+                LogTextBox.AppendText($"[{timestamp}] {message}\n"); // Vuln: path traversal from line 157
                 LogTextBox.ScrollToEnd();
                 UpdateTimestamp();
             });

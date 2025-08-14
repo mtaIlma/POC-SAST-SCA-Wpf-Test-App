@@ -89,7 +89,7 @@ namespace TestWpfApplication
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erreur lors de l'exécution de la requête :\n{ex.Message}",
+                MessageBox.Show($"Erreur lors de l'exécution de la requête :\n{ex.Message}", // Vuln: error message exposure
                                "Erreur SQL", MessageBoxButton.OK, MessageBoxImage.Error);
                 StatusTextBlock.Text = "Erreur d'exécution";
                 StatusTextBlock.Foreground = System.Windows.Media.Brushes.Red;
